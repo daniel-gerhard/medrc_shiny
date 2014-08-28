@@ -50,7 +50,7 @@ shinyUI(fluidPage(
                      sidebarLayout(
                        sidebarPanel(
                          selectInput("model", h4("Choose model"), 
-                                     choices  = c("", "LL.3", "LL.4", "LL.5"),
+                                     choices  = c("", "LL.2", "LL.3", "LL.4", "LL.5", "L.3", "L.4", "L.5", "W1.2", "W1.3", "W1.4", "W2.2", "W2.3", "W2.4", "LN.2", "LN.3", "LN.4", "BC.4", "BC.4", "AR.2", "AR.3", "EXD.2", "EXD.3", "MM.2", "MM.3"),
                                      selected = ""),
                          uiOutput("radio_fixed"),
                          uiOutput("radio_random"),

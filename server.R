@@ -133,10 +133,32 @@ shinyServer(function(input, output) {
   output$radio_fixed <- renderUI({
     df <- dat()
     if(is.null(df) || input$model == "" || input$fixed == "Single fixed effect curve") return() 
+    c("", "LL.2", "LL.3", "LL.4", "LL.5", "L.3", "L.4", "L.5", "W1.2", "W1.3", "W1.4", "W2.2", "W2.3", "W2.4", "LN.2", "LN.3", "LN.4", "BC.4", "BC.4", "AR.2", "AR.3", "EXD.2", "EXD.3", "MM.2", "MM.3")
     choice <- switch(input$model, 
+                     "LL.2" = c("b", "e"),
                      "LL.3" = c("b", "d", "e"),
                      "LL.4" = c("b", "c", "d", "e"),
-                     "LL.5" = c("b", "c", "d", "e", "f")      
+                     "LL.5" = c("b", "c", "d", "e", "f"), 
+                     "L.3"  = c("b", "d", "e"),
+                     "L.4"  = c("b", "c", "d", "e"),
+                     "L.5"  = c("b", "c", "d", "e", "f"),   
+                     "W1.2" = c("b", "e"),
+                     "W1.3" = c("b", "d", "e"),
+                     "W1.4" = c("b", "c", "d", "e"),
+                     "W2.2" = c("b", "e"),
+                     "W2.3" = c("b", "d", "e"),
+                     "W2.4" = c("b", "c", "d", "e"),    
+                     "LN.2" = c("b", "e"),
+                     "LN.3" = c("b", "d", "e"),
+                     "LN.4" = c("b", "c", "d", "e"),
+                     "BC.4" = c("b", "d", "e", "f"),
+                     "BC.5" = c("b", "c", "d", "e", "f"), 
+                     "AR.2" = c("d", "e"),
+                     "AR.3" = c("c", "d", "e"),   
+                     "EXD.2" = c("d", "e"),
+                     "EXD.3" = c("c", "d", "e"),  
+                     "MM.2" = c("d", "e"),
+                     "MM.3" = c("c", "d", "e") 
     )
     checkboxGroupInput("fixedcheck", h5(paste("Fixed", input$fixed, "effects")), choices = choice)
   }) 
@@ -145,9 +167,30 @@ shinyServer(function(input, output) {
     df <- dat()
     if (is.null(df) || input$model == "" || input$random == "No random effects") return() 
     choice <- switch(input$model, 
+                     "LL.2" = c("b", "e"),
                      "LL.3" = c("b", "d", "e"),
                      "LL.4" = c("b", "c", "d", "e"),
-                     "LL.5" = c("b", "c", "d", "e", "f")      
+                     "LL.5" = c("b", "c", "d", "e", "f"), 
+                     "L.3"  = c("b", "d", "e"),
+                     "L.4"  = c("b", "c", "d", "e"),
+                     "L.5"  = c("b", "c", "d", "e", "f"),   
+                     "W1.2" = c("b", "e"),
+                     "W1.3" = c("b", "d", "e"),
+                     "W1.4" = c("b", "c", "d", "e"),
+                     "W2.2" = c("b", "e"),
+                     "W2.3" = c("b", "d", "e"),
+                     "W2.4" = c("b", "c", "d", "e"),    
+                     "LN.2" = c("b", "e"),
+                     "LN.3" = c("b", "d", "e"),
+                     "LN.4" = c("b", "c", "d", "e"),
+                     "BC.4" = c("b", "d", "e", "f"),
+                     "BC.5" = c("b", "c", "d", "e", "f"), 
+                     "AR.2" = c("d", "e"),
+                     "AR.3" = c("c", "d", "e"),   
+                     "EXD.2" = c("d", "e"),
+                     "EXD.3" = c("c", "d", "e"),  
+                     "MM.2" = c("d", "e"),
+                     "MM.3" = c("c", "d", "e")     
     )
     checkboxGroupInput("randomcheck", h5(paste("Random", input$random, "effects")), choices = choice)
   }) 
@@ -192,9 +235,31 @@ shinyServer(function(input, output) {
     if (is.null(mm)) return()
     isolate({
       wmod <- switch(input$model, 
-                     LL.3="3 Parameter log-logistic Model",
-                     LL.4="4 Parameter log-logistic Model",
-                     LL.5="5 Parameter log-logistic Model")
+                     LL.2 = "2 parameter log-logistic model",
+                     LL.3 = "3 parameter log-logistic model",
+                     LL.4 = "4 parameter log-logistic model",
+                     LL.5 = "5 parameter log-logistic model",
+                     L.3  = "2 parameter logistic model",
+                     L.4  = "2 parameter logistic model",
+                     L.5  = "2 parameter logistic model",
+                     W1.2 = "2 parameter Weibull function",
+                     W1.3 = "3 parameter Weibull function",
+                     W1.4 = "4 parameter Weibull function",
+                     W2.2 = "2 parameter Weibull function (type 2)",
+                     W2.3 = "3 parameter Weibull function (type 2)",
+                     W2.4 = "4 parameter Weibull function (type 2)",
+                     LN.2 = "2 parameter log-Normal model",
+                     LN.3 = "3 parameter log-Normal model",
+                     LN.4 = "4 parameter log-Normal model",
+                     BC.4 = "4 parameter Brain-Cousens hormesis model",
+                     BC.5 = "5 parameter Brain-Cousens hormesis model",
+                     AR.2 = "2 parameter asymptotic regression model",
+                     AR.3 = "3 parameter asymptotic regression model",
+                     EXD.2 = "2 parameter exponential decay model",
+                     EXD.3 = "3 parameter exponential decay model",
+                     MM.2 = "2 parameter Michaelis-Menten model",
+                     MM.3 = "3 parameter Michaelis-Menten model"
+                       )
       cat(paste("<h2>", wmod,"</h2><br/>"))
       cat(paste("log-likelihood: ", round(as.numeric(logLik(mm)), 3), "<br/>"))
       cat(paste("AIC: ", round(as.numeric(AIC(mm)), 3), "<br/>"))
