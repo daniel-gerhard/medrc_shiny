@@ -1,9 +1,17 @@
 medrc_shiny
 ===========
 
-Running package medrc in a shiny app
+Fitting dose-response models with R package medrc in a shiny app
 
 -------------------------------
+
+To run this app the medrc package has to be installed first from GitHub:
+
+https://github.com/daniel-gerhard/medrc.git
+
+
+
+-----------------------------------
 
 The app can be started in R by using the function runGitHub:
 ```
